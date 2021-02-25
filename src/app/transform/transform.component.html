@@ -1,0 +1,32 @@
+<nz-page-header class="site-page-header" nzTitle="输入" nzSubtitle="请在此填写输入的文本">
+</nz-page-header>
+<textarea rows="4" #segwge nz-input [(ngModel)]="inputValue" (keydown.tab)="textAreaKeyDown($event)" (change)="transform()" ></textarea>
+
+<nz-table>
+    <thead>
+        <tr>
+            <th>title</th>
+            <th>source</th>
+            <th>target</th>
+            <th>option</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of regularExpressions">
+            <td *ngIf="data.edit"><input type="text" nz-input [(ngModel)]="data.title" (change)="transform()" /></td>
+            <td *ngIf="data.edit"><input type="text" nz-input [(ngModel)]="data.source" (change)="transform()" /></td>
+            <td *ngIf="data.edit"><input type="text" nz-input [(ngModel)]="data.target" (change)="transform()" /></td>
+            <td *ngIf="!data.edit">{{data.title}}</td>
+            <td *ngIf="!data.edit">{{data.source}}</td>
+            <td *ngIf="!data.edit">{{data.target}}</td>
+            <td><button (click)="data.edit = !data.edit"></button></td>
+        </tr>
+    </tbody>
+</nz-table>
+
+<nz-page-header class="site-page-header" nzTitle="输出" nzSubtitle="可在此复制输出的文本">
+</nz-page-header>
+<textarea rows="4" nz-input [(ngModel)]="outputValue"></textarea>
+
+
+<button (click)="transform()"></button>
