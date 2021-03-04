@@ -1,32 +1,70 @@
-<nz-page-header class="site-page-header" nzTitle="输入" nzSubtitle="请在此填写输入的文本">
-</nz-page-header>
-<textarea rows="4" #segwge nz-input [(ngModel)]="inputValue" (keydown.tab)="textAreaKeyDown($event)" (change)="transform()" ></textarea>
 
-<nz-table>
+<!-- <ul nz-menu nzMode="horizontal">
+    <li nz-menu-item [nzSelected]="group.selected" *ngFor="let group of regularExpressionGroups">
+        <i nz-icon nzType="mail"></i>
+        {{group.title}}
+    </li>
+</ul> -->
+
+<!--选择-->
+<nz-select [(ngModel)]="regularExpressionGroup">
+    <nz-option [nzValue]=group [nzLabel]=group.title *ngFor="let group of regularExpressionGroups"></nz-option>
+</nz-select>
+
+
+<!--转入和转出-->
+<div nz-row>
+    <div nz-col nzSpan="12">
+        <nz-page-header class="site-page-header" nzTitle="输入" nzSubtitle="请在此填写输入的文本"></nz-page-header>
+        <textarea nzAutosize rows="30" #segwge nz-input [(ngModel)]="inputValue" (change)="transform()" ></textarea>
+    </div>
+    <div nz-col nzSpan="12">
+
+        <nz-page-header class="site-page-header" nzTitle="输出" nzSubtitle="可在此复制输出的文本"></nz-page-header>
+        <textarea nzAutosize rows="30" nz-input [(ngModel)]="outputValue"></textarea>
+    </div>
+</div>
+<!--备注-->
+<div nz-row>
+    <div nz-col nzSpan="24">
+        <nz-page-header class="site-page-header" nzTitle="备注" nzSubtitle="说明"></nz-page-header>
+        {{regularExpressionGroup?.description}}
+    </div>
+</div>
+
+<!--预览-->
+<div nz-row *ngIf="regularExpressionGroup?.previewBeforeConversion && regularExpressionGroup?.previewAfterConversion">
+    <div nz-col nzSpan="12">
+        <nz-page-header class="site-page-header" nzTitle="转换前" nzSubtitle="转换前的文本如下所示"></nz-page-header>
+        <pre>{{regularExpressionGroup?.previewBeforeConversion}}</pre>
+    </div>
+    <div nz-col nzSpan="12">
+        <nz-page-header class="site-page-header" nzTitle="转换后" nzSubtitle="转换后的文本如下所示"></nz-page-header>
+        <pre>{{regularExpressionGroup?.previewAfterConversion}}</pre>
+    </div>
+</div>
+
+<!-- <nz-table>
     <thead>
         <tr>
-            <th>title</th>
-            <th>source</th>
-            <th>target</th>
-            <th>option</th>
+            <th>目标</th>
+            <th>replace</th>
+            <th>replaceValue</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of regularExpressions">
-            <td *ngIf="data.edit"><input type="text" nz-input [(ngModel)]="data.title" (change)="transform()" /></td>
-            <td *ngIf="data.edit"><input type="text" nz-input [(ngModel)]="data.source" (change)="transform()" /></td>
-            <td *ngIf="data.edit"><input type="text" nz-input [(ngModel)]="data.target" (change)="transform()" /></td>
-            <td *ngIf="!data.edit">{{data.title}}</td>
-            <td *ngIf="!data.edit">{{data.source}}</td>
-            <td *ngIf="!data.edit">{{data.target}}</td>
-            <td><button (click)="data.edit = !data.edit"></button></td>
+        <tr *ngFor="let data of regularExpressionGroup?.regularExpressions">
+            <td>{{data.title}}</td>
+            <td>{{data.replace}}</td>
+            <td>{{data.replaceValue}}</td>
         </tr>
     </tbody>
-</nz-table>
+</nz-table> -->
 
-<nz-page-header class="site-page-header" nzTitle="输出" nzSubtitle="可在此复制输出的文本">
-</nz-page-header>
-<textarea rows="4" nz-input [(ngModel)]="outputValue"></textarea>
-
-
-<button (click)="transform()"></button>
+<!-- <nz-modal [(nzVisible)]="isEditRegularExpression" nzTitle="正则表达式编辑" (nzOnOk)="handleEditRegularExpressionOk()">
+    <ng-container>
+        title: <input type="text" nz-input [(ngModel)]="regularExpression.title" (change)="transform()" />
+        source: <input type="text" nz-input [(ngModel)]="regularExpression.replace" (change)="transform()" />
+        target: <input type="text" nz-input [(ngModel)]="regularExpression.replaceValue" (change)="transform()" />
+    </ng-container>
+</nz-modal> -->

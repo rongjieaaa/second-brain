@@ -16,6 +16,10 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTransferModule } from 'ng-zorro-antd/transfer';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 registerLocaleData(zh);
 
@@ -34,7 +38,11 @@ registerLocaleData(zh);
     NzPageHeaderModule,
     NzTagModule,
     NzTableModule,
-    NzTransferModule
+    NzTransferModule,
+    NzModalModule,
+    NzMenuModule,
+    NzSelectModule,
+    NzGridModule
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]
