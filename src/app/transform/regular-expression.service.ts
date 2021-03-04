@@ -35,7 +35,7 @@ export class RegularExpressionService {
         regularExpressions: [
           {
             title: '去掉缩进',
-            replace: '\n        ',
+            replace: '\n\ {1,}',
             replaceValue: '\n',
           },
           {
@@ -86,7 +86,7 @@ export class RegularExpressionService {
         regularExpressions: [
           {
             title: '去掉缩进',
-            replace: '\n        ',
+            replace: '\n\ {1,}',
             replaceValue: '\n',
           },
           {

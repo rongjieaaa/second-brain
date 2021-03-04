@@ -16,7 +16,7 @@
 <div nz-row>
     <div nz-col nzSpan="12">
         <nz-page-header class="site-page-header" nzTitle="输入" nzSubtitle="请在此填写输入的文本"></nz-page-header>
-        <textarea nzAutosize rows="30" #segwge nz-input [(ngModel)]="inputValue" (change)="transform()" ></textarea>
+        <textarea nzAutosize rows="30" #segwge nz-input [(ngModel)]="inputValue" (keyup)="transform()" ></textarea>
     </div>
     <div nz-col nzSpan="12">
 
