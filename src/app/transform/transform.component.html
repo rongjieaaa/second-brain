@@ -1,11 +1,4 @@
 
-<!-- <ul nz-menu nzMode="horizontal">
-    <li nz-menu-item [nzSelected]="group.selected" *ngFor="let group of regularExpressionGroups">
-        <i nz-icon nzType="mail"></i>
-        {{group.title}}
-    </li>
-</ul> -->
-
 <!--选择-->
 <nz-select [(ngModel)]="regularExpressionGroup">
     <nz-option [nzValue]=group [nzLabel]=group.title *ngFor="let group of regularExpressionGroups"></nz-option>
