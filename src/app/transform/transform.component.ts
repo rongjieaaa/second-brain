@@ -13,37 +13,30 @@ export class TransformComponent implements OnInit {
   outputValue: string = "";
 
 
-  service?: RegularExpressionService;
-  regularExpressionGroups?: RegularExpressionGroup[];
+  regularExpressionService?: RegularExpressionService;
+  regularExpressionGroups?: Array<RegularExpressionGroup> = [];
+  regularExpressionGroup?: RegularExpressionGroup;
 
+  isEditRegularExpression: boolean = false;
+  regularExpression?: RegularExpression;
 
-  regularExpressionGroup?: RegularExpressionGroup = undefined;
-
-  constructor(service: RegularExpressionService) {
-    this.service = service;
+  constructor(regularExpressionService: RegularExpressionService) {
+    this.regularExpressionService = regularExpressionService;
   }
 
   ngOnInit(): void {
-    this.getRegularExpressionGroups();
-  }
-
-  getRegularExpressionGroups() {
-    this.service?.getRegularExpressionGroups().subscribe(regularExpressionGroups => {
-      this.regularExpressionGroups = regularExpressionGroups;
-      if(this.regularExpressionGroups?.length) {
-        this.regularExpressionGroup = this.regularExpressionGroups[0];
-      }
-    });
+    this.regularExpressionGroups = this.regularExpressionService?.getRegularExpressionGroups();
+    if(this.regularExpressionGroups?.length) {
+      this.regularExpressionGroup = this.regularExpressionGroups[0];
+    }
   }
 
   transform(): void {
-    if(this.regularExpressionGroup) {
-      this.outputValue = this.inputValue;
-      this.regularExpressionGroup?.regularExpressions.forEach(e => {
-        var r = new RegExp(e.replace, 'g');
-        this.outputValue = this.outputValue.replace(r, e.replaceValue);
-      });
-    }
+    this.outputValue = this.inputValue;
+    this.regularExpressionGroup?.regularExpressions.forEach(e => {
+      var r = new RegExp(e.replace, 'g');
+      this.outputValue = this.outputValue.replace(r, e.replaceValue);
+    });
   }
 
   // editRegularExpression(data: RegularExpression) {
