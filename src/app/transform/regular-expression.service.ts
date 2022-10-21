@@ -64,9 +64,9 @@ export class RegularExpressionService {
             replaceValue: 'b\.Property\(x => x\.$2\);',
           },
           {
-            title: '转换{默认值}为委托',
-            replace: '(.*?); = (.*?);',
-            replaceValue: '$1.HasDefaultValue($2);',
+            title: '添加{默认值}到注释和委托',
+            replace: '//(.*?)\n(.*?); = (.*?);',
+            replaceValue: '//$1 (默认 = $3)\n$2.HasDefaultValue($3);',
           },
           {
             title: '为特性[NotNull]加IsRequired()',
