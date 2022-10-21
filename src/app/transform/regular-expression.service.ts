@@ -39,6 +39,11 @@ export class RegularExpressionService {
             replaceValue: '\n',
           },
           {
+            title: "去除virtual关键字",
+            replace: "virtual ",
+            replaceValue: "",
+          },
+          {
             title: '修改xml格式的注释为单行注释',
             replace: '/// <summary>\n/// (.*)\n/// </summary>',
             replaceValue: '//$1',
@@ -50,13 +55,13 @@ export class RegularExpressionService {
           },
           {
             title: '添加{类型}到注释',
-            replace: '//(.*?)\npublic (virtual)? (.*?) (.*)',
-            replaceValue: '//($3) $1\npublic $2 $3 $4',
+            replace: '//(.*?)\npublic (.*?) (.*)',
+            replaceValue: '//($3) $1\npublic $2 $3',
           },
           {
             title: '转换{属性}为委托',
-            replace: 'public (virtual)? (.*?) (.*?) {.*?}',
-            replaceValue: 'b\.Property\(x => x\.$3\);',
+            replace: 'public (.*?) (.*?) {.*?}',
+            replaceValue: 'b\.Property\(x => x\.$2\);',
           },
           {
             title: '为特性[NotNull]加IsRequired()',
