@@ -55,13 +55,13 @@ export class RegularExpressionService {
           },
           {
             title: '添加{类型}到注释',
-            replace: '//(.*?)\npublic (.*?) ',
-            replaceValue: '//($2) $1\npublic $2 ',
+            replace: '//(.*?)\n(public|protected|private) (.*?) ',
+            replaceValue: '//($3) $1\n$2 $3 ',
           },
           {
             title: '转换{属性}为委托',
-            replace: 'public (.*?) (.*?) {.*?}',
-            replaceValue: 'b\.Property\(x => x\.$2\);',
+            replace: '(public|protected|private) (.*?) (.*?) {.*?}',
+            replaceValue: 'b\.Property\(x => x\.$3\);',
           },
           {
             title: '添加{默认值}到注释和委托',
