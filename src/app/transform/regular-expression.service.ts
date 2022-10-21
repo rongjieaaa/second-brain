@@ -39,14 +39,14 @@ export class RegularExpressionService {
             replaceValue: '\n',
           },
           {
-            title: "去除virtual关键字",
-            replace: "virtual ",
-            replaceValue: "",
-          },
-          {
             title: '修改xml格式的注释为单行注释',
             replace: '/// <summary>\n/// (.*)\n/// </summary>',
             replaceValue: '//$1',
+          },
+          {
+            title: "去除virtual关键字",
+            replace: "virtual ",
+            replaceValue: "",
           },
           {
             title: '转换{特性}到注释',
@@ -55,13 +55,18 @@ export class RegularExpressionService {
           },
           {
             title: '添加{类型}到注释',
-            replace: '//(.*?)\npublic (.*?) (.*)',
-            replaceValue: '//($3) $1\npublic $2 $3',
+            replace: '//(.*?)\npublic (.*?) ',
+            replaceValue: '//($2) $1\npublic $2 ',
           },
           {
             title: '转换{属性}为委托',
             replace: 'public (.*?) (.*?) {.*?}',
             replaceValue: 'b\.Property\(x => x\.$2\);',
+          },
+          {
+            title: '转换{默认值}为委托',
+            replace: '(.*?); = (.*?);',
+            replaceValue: '$1.HasDefaultValue($2);',
           },
           {
             title: '为特性[NotNull]加IsRequired()',
@@ -71,17 +76,17 @@ export class RegularExpressionService {
           {
             title: '为decimal类型的属性加长度限制',
             replace: '(\\(decimal??\\).*?\n.*?x\\.)(.*?)(\\).*?);',
-            replaceValue: '$1$2$3\.HasPrecision\(11, 4\);',
+            replaceValue: '$1$2$3\.HasPrecision\(18, 8\);',
           },
           {
             title: '为int类型的属性加长度限制',
             replace: '(\\(int??\\).*?\n.*?x\\.)(.*?)(\\).*?);',
-            replaceValue: '$1$2$3\.HasMaxLength\(______Consts\.Max$2Length\);',
+            replaceValue: '$1$2$3\.HasMaxLength\();',
           },
           {
             title: '为string类型的属性加长度限制',
-            replace: '(\\(string\\).*?\n.*?x\\.)(.*?)(\\).*?);',
-            replaceValue: '$1$2$3\.HasMaxLength\(______Consts\.Max$2Length\);',
+            replace: '(\\(string\\).*?);',
+            replaceValue: '$1\.HasMaxLength\();',
           },
         ],
         description: "由建好的Entity代码，自动转化为数据库结构定义。目前支持：1.识别[NotNull]特性，为不可空的属性加上必填的限定IsRequired()。2.自动为字符串类型的属性加上长度的限定HasMaxLength()，但是由于目前常量没有好的方式自动统一，需要手动替换下环线部分。3.自动为decimal类型的属性加上精度限定HasPrecision，默认(11,4)位，需要手动替换。5.转换后，不需要的属性定义，部分请自行删除。"
