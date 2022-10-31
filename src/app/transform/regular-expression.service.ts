@@ -29,6 +29,34 @@ export class RegularExpressionService {
   getRegularExpressionGroups(): Array<RegularExpressionGroup> {
     return [
       {
+        title: "普通Dto转ExcelDto",
+        previewBeforeConversion: "",
+        previewAfterConversion: "",
+        regularExpressions: [
+          {
+            title: '去掉缩进',
+            replace: '\n\ {1,}',
+            replaceValue: '\n',
+          },
+          {
+            title: '由类的注释转换成注解',
+            replace: '(/// <summary>\n/// )(.*)(\n/// </summary>\n)(.*?class)',
+            replaceValue: '$1$2$3\[ExcelExporter\(Name = "$2", TableStyle = TableStyles.Light10, AutoFitAllColumn = true\)\]\n$4',
+          },
+          {
+            title: '由属性的注释转换成注解',
+            replace: '(/// <summary>\n/// )(.*)(\n/// </summary>\n)(.*?{ get; set; })',
+            replaceValue: '$1$2$3\[ExporterHeader\(DisplayName  = "$2"\)\]\n$4',
+          },
+          {
+            title: 'decimal的格式化',
+            replace: '\\)\\]\n(.*?)decimal',
+            replaceValue: ', Format = "#,##0"\)\]\n$1decimal',
+          },
+        ],
+        description: ""
+      },
+      {
         title: "Entity转数据库结构定义",
         previewBeforeConversion: "/// <summary>\n/// 项目Id\n/// </summary>\n[NotNull]\npublic virtual Guid ProjectId { get; protected set; }\n/// <summary>\n/// 数量\n/// </summary>\n[NotNull]\npublic virtual decimal Quantity { get; set; }\n/// <summary>\n/// 单位\n/// </summary>\npublic virtual string Unit { get; set; }",
         previewAfterConversion: "//(Guid) 项目Id [NotNull]\nb.Property(x => x.ProjectId).IsRequired();\n//(decimal) 数量 [NotNull]\nb.Property(x => x.Quantity).IsRequired().HasPrecision(11, 4);\n//(string) 单位\nb.Property(x => x.Unit).HasMaxLength(______Consts.MaxUnitLength);",
